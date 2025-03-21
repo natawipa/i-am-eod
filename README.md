@@ -13,7 +13,7 @@
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/i-am-eod.git
+   git clone https://github.com/natawipa/i-am-eod.git
    cd i-am-eod
    ```
 
