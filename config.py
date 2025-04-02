@@ -1,5 +1,3 @@
-import os
-
 class Config:
     # Window settings
     window_width = 600
@@ -49,8 +47,7 @@ class Config:
 
     # Gameplay settings
     max_strikes = 3
-    timer_duration = 180  # in seconds
-    difficulty = 'normal'  # Options: 'easy', 'normal', 'hard'
+    timer_duration = 180  # 3 minutes
 
     # Module settings
     module_size = 500
@@ -65,12 +62,16 @@ class Config:
         'password': './logs/password.csv',
         'wire': './logs/wire.csv',
     }
-    game_id_file = './logs/game_id.txt'  # File to store the last game_id
+    game_id_file = './logs/game_id.txt'
 
-    # Debug mode
-    debug_mode = True
+    # Background music
+    bgm = './sound/Keep Talking and Nobody Explodes OST - DRAGON.wav'
 
-    @staticmethod
-    def rgb_color(r, g, b):
-        """Utility method to generate RGB colors dynamically."""
-        return (r, g, b)
+    # Sound effects
+    sfx = {
+        'button_click': './sound/click.wav',
+        # 'strike': './sound/strike.wav',
+        # 'defuse': './sound/defuse.wav',
+        # 'explosion': './sound/explosion.wav',
+    }
+    

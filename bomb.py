@@ -2,6 +2,7 @@ import csv
 import sys
 import time
 import pygame
+from sound import Sound
 from config import Config
 from module import PasswordModule, WireModule
 
@@ -14,6 +15,7 @@ class Bomb:
         self.defused = False
         self.timer = Config.timer_duration
         self.start_time = None
+        self.sound = Sound()
 
     def initialize_game_id(self):
         """Initialize the game ID when the game starts."""
@@ -50,8 +52,9 @@ class Bomb:
                 self.modules[self.current_module + 1].log_data(self.game_id)
             self.log_game_data(False)
             print("Game Over! Too many strikes.")
-            pygame.quit()
-            sys.exit()
+            # Instead of quitting, set the game state to game over
+            self.defused = False  # Ensure the bomb is not marked as defused
+            self.game_over = True  # Notify the game that it's over
 
     def module_solved(self):
         if self.current_module < len(self.modules) - 1:
@@ -80,3 +83,4 @@ class Bomb:
         with open(Config.log_files['game'], mode='a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([self.game_id, self.strikes, is_solved, time_taken, mistake_rate, modules_completed])
+            

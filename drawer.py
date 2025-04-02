@@ -1,6 +1,7 @@
 import pygame
 from config import Config
 
+
 class Drawer:
     # Load assets using Config
     strike_led = pygame.image.load(Config.assets['strike_led'])
@@ -8,7 +9,7 @@ class Drawer:
     main_bg = pygame.image.load(Config.assets['main_bg'])
     module_bg = pygame.image.load(Config.assets['module_bg'])
     bar = pygame.image.load(Config.assets['bar'])
-    bar = pygame.transform.scale(bar, (400, 100))
+    # bar = pygame.transform.scale(bar, (400, 100))
 
     # Load elements for the password module
     stage_led = pygame.image.load(Config.assets['stage_led'])
@@ -23,6 +24,10 @@ class Drawer:
     # Define button rectangles
     start_button_rect = pygame.Rect(100, 250, 400, 100)
     exit_button_rect = pygame.Rect(100, 400, 400, 100)
+
+    # Define replay and exit button rectangles for the end screen
+    replay_button_rect = pygame.Rect(100, 300, 400, 100)
+    end_button_rect = pygame.Rect(100, 450, 400, 100)
 
     @staticmethod
     def render_menu(screen, font):
@@ -42,7 +47,41 @@ class Drawer:
 
         pygame.display.flip()
 
-        
+    @staticmethod
+    def render_end_screen(screen, font, game_result):
+        """
+        Render the end screen with a semi-transparent overlay, game result text, and buttons.
+        """
+        screen.blit(Drawer.main_bg, (0, 0))
+
+        # Create a semi-transparent black overlay
+        overlay = pygame.Surface((Config.window_width, Config.window_height))
+        overlay.set_alpha(150)  # Set transparency level
+        overlay.fill((0, 0, 0))  # Black color
+        screen.blit(overlay, (0, 0))
+
+        # Display game result text
+        result_text = "Bomb Defused!" if game_result == "defused" else "Bomb Exploded!"
+        result_color = Config.color['green'] if game_result == "defused" else Config.color['red']
+        result_font = pygame.font.Font(Config.assets['font'], 60)
+        result_surface = result_font.render(result_text, True, result_color)
+        result_rect = result_surface.get_rect(center=(Config.window_width // 2, Config.window_height // 4))
+        screen.blit(result_surface, result_rect)
+
+        # Draw "Replay" button
+        screen.blit(Drawer.bar, Drawer.replay_button_rect.topleft)
+        replay_text = font.render("Replay", True, Config.color['black'])
+        replay_text_rect = replay_text.get_rect(center=(Drawer.replay_button_rect.centerx, Drawer.replay_button_rect.centery - 10))
+        screen.blit(replay_text, replay_text_rect)
+
+        # Draw "Exit" button
+        screen.blit(Drawer.bar, Drawer.end_button_rect.topleft)
+        exit_text = font.render("Exit", True, Config.color['black'])
+        exit_text_rect = exit_text.get_rect(center=(Drawer.end_button_rect.centerx, Drawer.end_button_rect.centery - 10))
+        screen.blit(exit_text, exit_text_rect)
+
+        pygame.display.flip()
+
     @staticmethod
     def draw_bomb(screen, bomb):
         screen.blit(Drawer.main_bg, (0, 0))
@@ -165,3 +204,4 @@ class Drawer:
             module.cut_indices.append(wire_index)
         Drawer.draw_wire_module(screen, module)
         pygame.display.flip()
+        

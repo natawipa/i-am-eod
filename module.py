@@ -2,8 +2,10 @@ import csv
 import time
 import random
 import pygame
+from sound import Sound
 from drawer import Drawer
 from config import Config
+
 
 class Module:
     def __init__(self, bomb):
@@ -11,7 +13,7 @@ class Module:
         self.is_solved = False
         self.start_time = None  # Initialize start_time for each module
         self.end_time = None
-
+        self.sound = Sound()
 
     def start_timer(self):
         self.start_time = time.time()
@@ -40,9 +42,8 @@ class PasswordModule(Module):
         self.get_solution()
         self.mistakes_per_stage = [0] * self.stages
 
-
     def get_solution(self):
-        for stage in range(1, self.stages + 1):  # stage 1 to 5
+        for stage in range(1, self.stages + 1):
             if stage == 1:
                 if self.display_numbers[stage - 1] in [1, 2]:
                     self.solution_positions[stage - 1] = 2
@@ -99,12 +100,13 @@ class PasswordModule(Module):
                 elif self.display_numbers[stage - 1] == 4:
                     self.solution_positions[stage - 1] = self.button_positions[stage - 1].index(self.solution_labels[stage - 3]) + 1
                     self.solution_labels[stage - 1] = self.solution_labels[stage - 3]
-            print(f"Stage {stage}: {self.display_numbers[stage - 1]} -> {self.solution_positions[stage - 1]} -> {self.solution_labels[stage - 1]}")
-
+            # print(f"Stage {stage}: {self.display_numbers[stage - 1]} -> {self.solution_positions[stage - 1]} -> {self.solution_labels[stage - 1]}")
 
     def handle_click(self, mouse_pos, screen):
         for button_rect, label in self.buttons:
             if button_rect.collidepoint(mouse_pos):
+                self.sound.play_sfx(Config.sfx['button_click'])
+                pygame.time.wait(200)
                 Drawer.update_button(screen, button_rect, label, self.font)
                 if label == self.solution_labels[self.current_stage - 1]:
                     self.current_stage += 1
@@ -116,7 +118,6 @@ class PasswordModule(Module):
                     self.mistakes_per_stage[self.current_stage - 1] += 1
                     self.bomb.add_strike()
                     self.reset()
-
 
     def reset(self):
         self.current_stage = 1
@@ -133,7 +134,7 @@ class PasswordModule(Module):
 
         time_taken = None
         if self.start_time and self.end_time:
-            time_taken = int(self.end_time - self.start_time)  # Time taken to solve this module
+            time_taken = int(self.end_time - self.start_time)
 
         with open(Config.log_files['password'], mode='a', newline='') as file:
             writer = csv.writer(file)
@@ -146,7 +147,8 @@ class PasswordModule(Module):
                 time_taken,
                 self.is_solved
             ])
-        
+
+
 class WireModule(Module):
     def __init__(self, bomb):
         super().__init__(bomb)
@@ -196,7 +198,7 @@ class WireModule(Module):
                 self.solution = self.wire_num
             else:
                 self.solution = 4
-        print(f"Solution: {self.solution}")
+        # print(f"Solution: {self.solution}")
 
     def handle_click(self, mouse_pos, screen):
         for i, wire_rect in enumerate(self.wire_rects):
@@ -213,6 +215,12 @@ class WireModule(Module):
                         self.mistakes += 1
                 break
 
+    def reset(self):
+        self.wire_num = random.randint(3, 6)
+        self.wires = [random.choice(self.colours) for _ in range(self.wire_num)]
+        self.cut_indices = []
+        self.get_solution()
+        
     def draw(self, screen):
         Drawer.draw_wire_module(screen, self)
 
@@ -222,15 +230,30 @@ class WireModule(Module):
 
         time_taken = None
         if self.start_time and self.end_time:
-            time_taken = int(self.end_time - self.start_time)  # Time taken to solve this module
+            time_taken = int(self.end_time - self.start_time)
 
         with open(Config.log_files['wire'], mode='a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([
                 game_id,
-                self.mistakes,
+                len(self.cut_indices),
                 self.cut_indices,
                 [self.wires[i - 1] for i in self.cut_indices],
                 time_taken,
                 self.is_solved
             ])
+
+
+class SimonSaysModule(Module):
+    # Will be implemented if have time
+    def __init__(self, bomb):
+        pass
+
+    def handle_click(self, mouse_pos, screen):
+        pass
+
+    def draw(self, screen):
+        pass
+
+    def log_data(self, game_id):
+        pass
