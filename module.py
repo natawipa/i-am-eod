@@ -100,7 +100,7 @@ class PasswordModule(Module):
                 elif self.display_numbers[stage - 1] == 4:
                     self.solution_positions[stage - 1] = self.button_positions[stage - 1].index(self.solution_labels[stage - 3]) + 1
                     self.solution_labels[stage - 1] = self.solution_labels[stage - 3]
-            # print(f"Stage {stage}: {self.display_numbers[stage - 1]} -> {self.solution_positions[stage - 1]} -> {self.solution_labels[stage - 1]}")
+            print(f"Stage {stage}: {self.display_numbers[stage - 1]} -> {self.solution_positions[stage - 1]} -> {self.solution_labels[stage - 1]}")
 
     def handle_click(self, mouse_pos, screen):
         for button_rect, label in self.buttons:
@@ -140,7 +140,7 @@ class PasswordModule(Module):
             writer = csv.writer(file)
             writer.writerow([
                 game_id,
-                sum(self.mistakes_per_stage),
+                1 + sum(self.mistakes_per_stage),
                 self.mistakes_per_stage.index(max(self.mistakes_per_stage)) + 1 if self.mistakes_per_stage else 0,
                 str(self.mistakes_per_stage),
                 self.current_stage - 1,
@@ -198,7 +198,7 @@ class WireModule(Module):
                 self.solution = self.wire_num
             else:
                 self.solution = 4
-        # print(f"Solution: {self.solution}")
+        print(f"Solution: {self.solution}")
 
     def handle_click(self, mouse_pos, screen):
         for i, wire_rect in enumerate(self.wire_rects):

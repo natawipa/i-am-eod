@@ -50,12 +50,12 @@ class Game:
                 # Check collision with the start button
                 if Drawer.start_button_rect.collidepoint(mouse_pos):
                     self.sound.play_sfx(Config.sfx['button_click'])
-                    pygame.time.wait(200) 
+                    pygame.time.wait(200)
                     self.in_menu = False  # Start the game
                 # Check collision with the exit button
                 elif Drawer.exit_button_rect.collidepoint(mouse_pos):
                     self.sound.play_sfx(Config.sfx['button_click'])
-                    pygame.time.wait(200) 
+                    pygame.time.wait(200)
                     self.running = False  # Exit the game
 
     def handle_end_screen_events(self):

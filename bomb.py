@@ -6,6 +6,7 @@ from sound import Sound
 from config import Config
 from module import PasswordModule, WireModule
 
+
 class Bomb:
     def __init__(self):
         self.game_id = None
@@ -16,6 +17,8 @@ class Bomb:
         self.timer = Config.timer_duration
         self.start_time = None
         self.sound = Sound()
+        self.game_over = False
+        self.logging_in_progress = False  # Add a flag to prevent recursive logging
 
     def initialize_game_id(self):
         """Initialize the game ID when the game starts."""
@@ -31,7 +34,7 @@ class Bomb:
 
         next_id = last_id + 1
         with open(game_id_file, 'w') as file:
-            file.write(str(next_id))  # Save the new game_id
+            file.write(str(next_id)) 
         return next_id
 
     def start_timer(self):
@@ -42,9 +45,21 @@ class Bomb:
         if self.start_time is None:
             return self.timer
         elapsed_time = time.time() - self.start_time
+        if elapsed_time > self.timer and not self.game_over:
+            self.modules[self.current_module].log_data(self.game_id)
+            if self.current_module < len(self.modules) - 1:
+                self.modules[self.current_module + 1].log_data(self.game_id)
+            self.log_game_data(False)
+            self.defused = False
+            self.sound.play_sfx(Config.sfx['explosion'])
+            self.game_over = True 
+            return 0
         return max(0, self.timer - elapsed_time)
 
     def add_strike(self):
+        if self.game_over: 
+            return
+        self.sound.play_sfx(Config.sfx['strike'])
         self.strikes += 1
         if self.strikes >= Config.max_strikes:
             self.modules[self.current_module].log_data(self.game_id)
@@ -52,35 +67,43 @@ class Bomb:
                 self.modules[self.current_module + 1].log_data(self.game_id)
             self.log_game_data(False)
             print("Game Over! Too many strikes.")
-            # Instead of quitting, set the game state to game over
-            self.defused = False  # Ensure the bomb is not marked as defused
-            self.game_over = True  # Notify the game that it's over
+            self.defused = False
+            self.sound.play_sfx(Config.sfx['explosion'])
+            self.game_over = True  # Mark the game as over
 
     def module_solved(self):
+        if self.game_over:  # Prevent further actions if the game is already over
+            return
         if self.current_module < len(self.modules) - 1:
             self.modules[self.current_module].end_time = time.time()
             self.modules[self.current_module].log_data(self.game_id)
             self.current_module += 1
             self.modules[self.current_module].start_timer()
         else:
+            self.sound.play_sfx(Config.sfx['defuse'])
             self.defused = True
             self.modules[self.current_module].end_time = time.time()
             self.modules[self.current_module].log_data(self.game_id)
             self.log_game_data(True)
+            self.game_over = True  
 
     def handle_click(self, mouse_pos, screen):
         current_module = self.modules[self.current_module]
         current_module.handle_click(mouse_pos, screen)
 
     def log_game_data(self, is_solved):
-        # Only log to game.csv when the game ends
-        time_taken = int(self.timer - self.time_left())
+        if self.logging_in_progress:
+            return
+        self.logging_in_progress = True
+
+        time_taken = int(self.timer - max(0, self.timer - (time.time() - self.start_time))) 
         mistake_rate = self.strikes / len(self.modules)
         modules_completed = self.current_module + 1
-        if self.strikes >= 3:
+        if self.strikes >= Config.max_strikes:
             modules_completed -= 1
 
         with open(Config.log_files['game'], mode='a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([self.game_id, self.strikes, is_solved, time_taken, mistake_rate, modules_completed])
-            
+
+        self.logging_in_progress = False  # Reset the flag after logging

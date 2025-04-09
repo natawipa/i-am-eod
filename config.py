@@ -70,8 +70,8 @@ class Config:
     # Sound effects
     sfx = {
         'button_click': './sound/click.wav',
-        # 'strike': './sound/strike.wav',
-        # 'defuse': './sound/defuse.wav',
-        # 'explosion': './sound/explosion.wav',
+        'strike': './sound/strike.wav',
+        'defuse': './sound/defuse.wav',
+        'explosion': './sound/explosion.wav',
     }
     

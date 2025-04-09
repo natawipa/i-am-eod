@@ -1,6 +1,7 @@
 import pygame
 from config import Config
 
+
 class Sound:
     def __init__(self):
         pygame.mixer.init()

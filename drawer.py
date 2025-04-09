@@ -9,7 +9,6 @@ class Drawer:
     main_bg = pygame.image.load(Config.assets['main_bg'])
     module_bg = pygame.image.load(Config.assets['module_bg'])
     bar = pygame.image.load(Config.assets['bar'])
-    # bar = pygame.transform.scale(bar, (400, 100))
 
     # Load elements for the password module
     stage_led = pygame.image.load(Config.assets['stage_led'])
