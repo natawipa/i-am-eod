@@ -1,8 +1,16 @@
 import pygame
+import multiprocessing
 from bomb import Bomb
 from sound import Sound
 from drawer import Drawer
 from config import Config
+from static import Statistics
+
+
+def show_statistics_process():
+    """Function to display game statistics in a tkinter window (runs in a separate process)."""
+    viewer = Statistics()
+    viewer.run()
 
 
 class Game:
@@ -18,7 +26,7 @@ class Game:
         self.sound = Sound()
         self.sound.play_bgm()
         self.game_over = False
-        self.game_result = None 
+        self.game_result = None
 
     def run(self):
         while self.running:
@@ -57,6 +65,13 @@ class Game:
                     self.sound.play_sfx(Config.sfx['button_click'])
                     pygame.time.wait(200)
                     self.running = False  # Exit the game
+                # Check collision with the stats button
+                elif Drawer.static_button_rect.collidepoint(mouse_pos):  # Assuming a stats button exists
+                    self.sound.play_sfx(Config.sfx['button_click'])
+                    pygame.time.wait(200)
+                    # Launch the statistics viewer in a separate process
+                    stats_process = multiprocessing.Process(target=show_statistics_process)
+                    stats_process.start()
 
     def handle_end_screen_events(self):
         for event in pygame.event.get():

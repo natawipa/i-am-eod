@@ -23,6 +23,7 @@ class Drawer:
     # Define button rectangles
     start_button_rect = pygame.Rect(100, 250, 400, 100)
     exit_button_rect = pygame.Rect(100, 400, 400, 100)
+    static_button_rect = pygame.Rect(100, 550, 400, 100)
 
     # Define replay and exit button rectangles for the end screen
     replay_button_rect = pygame.Rect(100, 300, 400, 100)
@@ -43,6 +44,12 @@ class Drawer:
         exit_text = font.render("Exit", True, Config.color['black'])
         exit_text_rect = exit_text.get_rect(center=(Drawer.exit_button_rect.centerx, Drawer.exit_button_rect.centery - 10))
         screen.blit(exit_text, exit_text_rect)
+
+        # Draw "Static" button
+        screen.blit(Drawer.bar, Drawer.static_button_rect.topleft)
+        static_text = font.render("Static", True, Config.color['black'])
+        static_text_rect = static_text.get_rect(center=(Drawer.static_button_rect.centerx, Drawer.static_button_rect.centery - 10))
+        screen.blit(static_text, static_text_rect)
 
         pygame.display.flip()
 
