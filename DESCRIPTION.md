@@ -100,6 +100,10 @@ In "I AM EOD," players take on the role of an Explosive Ordnance Disposal (EOD) 
    - Implements the statistics viewer using `tkinter` and `matplotlib`.
    - Loads gameplay logs and generates visualizations.
 
+The following UML diagram illustrates the structure of the game, including its main classes and their relationships:
+
+<img src="https://github.com/natawipa/i-am-eod/raw/main/uml.png" alt="UML Class Diagram" />
+
 ---
 
 ### 3.3 Algorithms Involved
@@ -117,48 +121,38 @@ In "I AM EOD," players take on the role of an Explosive Ordnance Disposal (EOD) 
 
 ---
 
-## 4. Statistical Data (Prop Stats)
+## 4. Statistical Data
 
 ### 4.1 Data Features
 
-**Game Completion Rate:**
+The following data features are recorded during gameplay to analyze player performance and game difficulty:
 
-- Measures overall player success rate.
-- Helps identify game difficulty balance.
-
-**Mistake Distribution by Stage (Password Module):**
-
-- Identifies which password stages are most challenging.
-
-**Time Taken to Defuse Bomb:**
-
-- Measures engagement and skill level.
-
-**Attempts vs Success in Wire Module:**
-
-- Shows the learning curve for wire-cutting.
+- **Game Completion Rate**: Tracks the proportion of successful vs failed attempts.
+- **Mistake Distribution by Stage (Password Module)**: Identifies which stages in the Password Module are most challenging for players.
+- **Time Taken to Defuse Bomb**: Measures the time players take to complete the game, indicating engagement and skill level.
+- **Attempts vs Success in Wire Module**: Tracks the learning curve by analyzing the number of attempts required to succeed in the Wire Module.
 
 ### 4.2 Data Recording Method
 
-Data is stored in CSV files for easy analysis. Example structure:
+Gameplay data is stored in CSV files for easy analysis. Example structure:
 
 | Game ID | Mistakes | Time Taken | Modules Completed | Game Result |
 | ------- | -------- | ---------- | ----------------- | ----------- |
 | 1       | 2        | 120        | 2                 | Defused     |
 
----
-
 ### 4.3 Data Analysis Report
 
-| Feature Name                       | Graph Objective                         | Graph Type   | X-axis          | Y-axis           |
-| ---------------------------------- | --------------------------------------- | ------------ | --------------- | ---------------- |
-| Game Completion Rate               | Show success vs failure proportions     | Pie Chart    | Success/Failure | Percentage       |
-| Time Taken vs Mistake Rate         | Correlate mistakes with time taken      | Scatter Plot | Time (seconds)  | Mistakes         |
-| Most Common Failure Reasons        | Highlight primary failure causes        | Bar Chart    | Failure Reasons | Frequency        |
-| Mistake Distribution by Stage      | Identify challenging stages in Password | Stacked Bar  | Stages          | Mistake Counts   |
-| Module Completion Time             | Compare time taken for each module      | Boxplot      | Module Type     | Time (seconds)   |
-| Time Taken to Defuse Bomb          | Show time distribution                  | Histogram    | Time (seconds)  | Frequency        |
-| Attempts vs Success in Wire Module | Analyze success rate by attempts        | Line Graph   | Attempts        | Success Rate (%) |
+The following table outlines the key features analyzed, their objectives, and the types of graphs used for visualization:
+
+| Feature Name                           | Graph Objective                         | Graph Type   | X-axis          | Y-axis           |
+| -------------------------------------- | --------------------------------------- | ------------ | --------------- | ---------------- |
+| **Game Completion Rate**               | Show success vs failure proportions     | Pie Chart    | Success/Failure | Percentage       |
+| **Time Taken vs Mistake Rate**         | Correlate mistakes with time taken      | Scatter Plot | Time (seconds)  | Mistakes         |
+| **Most Common Failure Reasons**        | Highlight primary failure causes        | Bar Chart    | Failure Reasons | Frequency        |
+| **Mistake Distribution by Stage**      | Identify challenging stages in Password | Stacked Bar  | Stages          | Mistake Counts   |
+| **Module Completion Time**             | Compare time taken for each module      | Boxplot      | Module Type     | Time (seconds)   |
+| **Time Taken to Defuse Bomb**          | Show time distribution                  | Histogram    | Time (seconds)  | Frequency        |
+| **Attempts vs Success in Wire Module** | Analyze success rate by attempts        | Line Graph   | Attempts        | Success Rate (%) |
 
 ---
 
