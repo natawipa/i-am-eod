@@ -138,14 +138,29 @@ class PasswordModule(Module):
 
         with open(Config.log_files['password'], mode='a', newline='') as file:
             writer = csv.writer(file)
+            # Calculate the most mistake stages
+            max_mistakes = max(self.mistakes_per_stage) if self.mistakes_per_stage else 0
+            most_mistake_stages = [i + 1 for i, mistakes in enumerate(self.mistakes_per_stage) if mistakes == max_mistakes] if max_mistakes > 0 else []
+
+            # Determine stages completed
+            if self.is_solved:
+                stages_completed = self.stages
+            else:
+                # Find the last stage with a mistake
+                # iterate through the mistakes_per_stage in reverse order if > 0 that index + 1 is the last stage completed
+                for i in range(len(self.mistakes_per_stage) - 1, -1, -1):
+                    if self.mistakes_per_stage[i] > 0:
+                        stages_completed = i
+                        break 
+
             writer.writerow([
                 game_id,
-                1 + sum(self.mistakes_per_stage),
-                self.mistakes_per_stage.index(max(self.mistakes_per_stage)) + 1 if self.mistakes_per_stage else 0,
-                str(self.mistakes_per_stage),
-                self.current_stage - 1,
-                time_taken,
-                self.is_solved
+                1 + sum(self.mistakes_per_stage),  # Total mistakes
+                most_mistake_stages,               # Most mistake stages
+                str(self.mistakes_per_stage),      # Mistakes per stage
+                stages_completed,                  # Stages completed
+                time_taken,                        # Time taken
+                self.is_solved                     # Whether the module was solved
             ])
 
 
@@ -236,11 +251,12 @@ class WireModule(Module):
             writer = csv.writer(file)
             writer.writerow([
                 game_id,
-                len(self.cut_indices),
-                self.cut_indices,
-                [self.wires[i - 1] for i in self.cut_indices],
-                time_taken,
-                self.is_solved
+                len(self.cut_indices),  # Number of attempts
+                self.cut_indices,       # Indices of wires cut
+                [self.wires[i - 1] for i in self.cut_indices],  # Colors of wires cut
+                self.wire_num,          # Number of wires in the module
+                time_taken,             # Time taken to solve the module
+                self.is_solved          # Whether the module was solved
             ])
 
 

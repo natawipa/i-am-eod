@@ -21,9 +21,10 @@ class Drawer:
     cutted_wire_images = {color: pygame.image.load(path) for color, path in Config.assets['cutted_wires'].items()}
 
     # Define button rectangles
-    start_button_rect = pygame.Rect(100, 250, 400, 100)
-    exit_button_rect = pygame.Rect(100, 400, 400, 100)
-    static_button_rect = pygame.Rect(100, 550, 400, 100)
+    start_button_rect = pygame.Rect(100, 260, 400, 100)
+    # tutorial_button_rect = pygame.Rect(100, 360, 400, 100)
+    static_button_rect = pygame.Rect(100, 390, 400, 100)
+    exit_button_rect = pygame.Rect(100, 520, 400, 100)
 
     # Define replay and exit button rectangles for the end screen
     replay_button_rect = pygame.Rect(100, 300, 400, 100)
@@ -33,23 +34,43 @@ class Drawer:
     def render_menu(screen, font):
         screen.blit(Drawer.main_bg, (0, 0))
 
+        # Game title
+        title_font = pygame.font.Font(Config.assets['font'], 80)
+
+        # Render the text with a black border by drawing it multiple times with slight offsets
+        for offset in [(-2, -2), (-2, 2), (2, -2), (2, 2), (0, -2), (0, 2), (-2, 0), (2, 0)]:
+            border_text = title_font.render("I AM EOD!", True, Config.color['black'])
+            border_rect = border_text.get_rect(center=(Config.window_width // 2 + offset[0], Config.window_height // 5 + offset[1]))
+            screen.blit(border_text, border_rect)
+
+        # Render the main white text on top
+        title_text = title_font.render("I AM EOD!", True, Config.color['white'])
+        title_rect = title_text.get_rect(center=(Config.window_width // 2, Config.window_height // 5 - 10))
+        screen.blit(title_text, title_rect)
+
         # Draw "Start Game" button
         screen.blit(Drawer.bar, Drawer.start_button_rect.topleft)
         start_text = font.render("Start Game", True, Config.color['black'])
         start_text_rect = start_text.get_rect(center=(Drawer.start_button_rect.centerx, Drawer.start_button_rect.centery - 10))
         screen.blit(start_text, start_text_rect)
 
-        # Draw "Exit" button
-        screen.blit(Drawer.bar, Drawer.exit_button_rect.topleft)
-        exit_text = font.render("Exit", True, Config.color['black'])
-        exit_text_rect = exit_text.get_rect(center=(Drawer.exit_button_rect.centerx, Drawer.exit_button_rect.centery - 10))
-        screen.blit(exit_text, exit_text_rect)
+        # # Draw "Tutorial" button
+        # screen.blit(Drawer.bar, Drawer.tutorial_button_rect.topleft)
+        # tutorial_text = font.render("Tutorial", True, Config.color['black'])
+        # tutorial_text_rect = tutorial_text.get_rect(center=(Drawer.tutorial_button_rect.centerx, Drawer.tutorial_button_rect.centery - 10))
+        # screen.blit(tutorial_text, tutorial_text_rect)
 
         # Draw "Static" button
         screen.blit(Drawer.bar, Drawer.static_button_rect.topleft)
         static_text = font.render("Static", True, Config.color['black'])
         static_text_rect = static_text.get_rect(center=(Drawer.static_button_rect.centerx, Drawer.static_button_rect.centery - 10))
         screen.blit(static_text, static_text_rect)
+        
+        # Draw "Exit" button
+        screen.blit(Drawer.bar, Drawer.exit_button_rect.topleft)
+        exit_text = font.render("Exit", True, Config.color['black'])
+        exit_text_rect = exit_text.get_rect(center=(Drawer.exit_button_rect.centerx, Drawer.exit_button_rect.centery - 10))
+        screen.blit(exit_text, exit_text_rect)
 
         pygame.display.flip()
 

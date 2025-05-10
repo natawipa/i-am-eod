@@ -4,13 +4,13 @@ from bomb import Bomb
 from sound import Sound
 from drawer import Drawer
 from config import Config
-from static import Statistics
+from stats import Stats
 
 
 def show_statistics_process():
     """Function to display game statistics in a tkinter window (runs in a separate process)."""
-    viewer = Statistics()
-    viewer.run()
+    viewer = Stats()
+    viewer
 
 
 class Game:
@@ -72,7 +72,13 @@ class Game:
                     # Launch the statistics viewer in a separate process
                     stats_process = multiprocessing.Process(target=show_statistics_process)
                     stats_process.start()
-
+                # # Check collision with the tutorial button
+                # elif Drawer.tutorial_button_rect.collidepoint(mouse_pos):
+                #     self.sound.play_sfx(Config.sfx['button_click'])
+                #     pygame.time.wait(200)
+                #     # Show tutorial (not implemented in this snippet)
+                #     print("Show tutorial")  # Placeholder for tutorial functionality
+                    
     def handle_end_screen_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

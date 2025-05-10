@@ -1,10 +1,33 @@
-# game_id, number_of_mistake, is_solved, time_taken, mistake_rate, modules_completed
-1,3,False,112,1.5,0
-2,1,True,175,0.5,2
-3,0,True,105,0.0,2
-4,1,True,117,0.5,2
-5,1,True,68,0.5,2
-6,0,True,95,0.0,2
-7,2,False,180,1.0,1
-8,3,False,81,1.5,0
-9,3,False,33,1.5,0
+# game_id, number_of_mistake, is_solved, time_taken, mistake_rate, modules_completed, game_result
+1,1,True,96,0.5,2,defused
+2,1,True,120,0.5,2,defused
+3,2,True,112,1.0,2,defused
+4,0,True,80,0.0,2,defused
+5,3,False,37,1.5,0,too many strikes
+6,3,False,48,1.5,0,too many strikes
+7,1,True,107,0.5,2,defused
+8,1,True,161,0.5,2,defused
+9,3,False,33,1.5,0,too many strikes
+10,2,True,130,1.0,2,defused
+11,3,False,169,1.5,0,too many strikes
+12,0,True,68,0.0,2,defused
+13,1,True,74,0.5,2,defused
+14,0,True,70,0.0,2,defused
+15,2,True,107,1.0,2,defused
+16,0,True,68,0.0,2,defused
+17,0,True,71,0.0,2,defused
+18,2,True,107,1.0,2,defused
+19,0,True,76,0.0,2,defused
+20,1,True,59,0.5,2,defused
+21,2,True,98,1.0,2,defused
+22,1,True,141,0.5,2,defused
+23,2,False,180,1.0,1,timeout
+24,1,True,98,0.5,2,defused
+25,3,False,90,1.5,0,too many strikes
+26,3,False,50,1.5,0,too many strikes
+27,0,True,78,0.0,2,defused
+28,1,True,69,0.5,2,defused
+29,0,True,70,0.0,2,defused
+30,1,True,98,0.5,2,defused
+31,2,True,100,1.0,2,defused
+32,3,False,71,1.5,0,too many strikes
