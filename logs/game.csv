@@ -31,3 +31,21 @@
 30,1,True,98,0.5,2,defused
 31,2,True,100,1.0,2,defused
 32,3,False,71,1.5,0,too many strikes
+33,0,True,93,0.0,2,defused
+34,1,True,81,0.5,2,defused
+35,2,True,86,1.0,2,defused
+36,3,False,102,1.5,0,too many strikes
+37,2,False,180,1.0,2,timeout
+38,2,True,108,1.0,2,defused
+39,2,True,110,1.0,2,defused
+40,2,True,85,1.0,2,defused
+41,0,True,82,0.0,2,defused
+42,0,True,116,0.0,2,defused
+43,2,True,118,1.0,2,defused
+44,0,True,110,0.0,2,defused
+45,3,False,62,1.5,0,too many strikes
+46,0,True,109,0.0,2,defused
+47,0,True,107,0.0,2,defused
+48,2,False,180,1.0,2,timeout
+49,2,True,106,1.0,2,defused
+50,1,True,97,0.5,2,defused
