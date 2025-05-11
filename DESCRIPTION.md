@@ -159,3 +159,13 @@ The following table outlines the key features analyzed, their objectives, and th
 ## 5. YouTube
 
 [Watch the gameplay video here](https://www.youtube.com/watch?v=eXxv4rbYBpM)
+
+---
+
+## Audio Credits
+
+- **Background Music (BGM):**  
+  [Keep Talking and Nobody Explodes - Soundtrack](https://store.steampowered.com/app/515240/Keep_Talking_and_Nobody_Explodes__Soundtrack/)
+
+- **Sound Effects:**  
+  [Pixabay Free Sound Effects](https://pixabay.com/)
