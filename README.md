@@ -21,13 +21,28 @@
    cd i-am-eod
    ```
 
-2. Install the required dependencies:
+2. Set up Environment (recommended):
+
+   ```bash
+   python3 -m venv venv
+   ```
+
+   - **On Windows**:
+     ```bash
+     venv\Scripts\activate
+     ```
+   - **On Linux/macOS**:
+     ```bash
+     source venv/bin/activate
+     ```
+
+3. Install the required dependencies:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Ensure the following assets are available in the `element/` and `sound/` directories:
+4. Ensure the following assets are available in the `element/` and `sound/` directories:
    - Fonts, images, and sound files as specified in `config.py`.
 
 ## How to Play
