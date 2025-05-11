@@ -158,4 +158,4 @@ The following table outlines the key features analyzed, their objectives, and th
 
 ## 5. YouTube
 
-A gameplay video will be added soon.
+[Watch the gameplay video here](https://www.youtube.com/watch?v=eXxv4rbYBpM)

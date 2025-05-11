@@ -49,3 +49,9 @@
 48,2,False,180,1.0,2,timeout
 49,2,True,106,1.0,2,defused
 50,1,True,97,0.5,2,defused
+51,3,False,89,1.5,0,too many strikes
+52,1,True,122,0.5,2,defused
+53,3,False,3,1.5,0,too many strikes
+54,3,False,49,1.5,1,too many strikes
+55,1,True,49,0.5,2,defused
+56,3,False,12,1.5,1,too many strikes
