@@ -79,6 +79,7 @@ The following UML diagram illustrates the structure of the game, including its m
   - `seaborn`
   - `pandas`
   - `numpy`
+- `tkinter` (usually included with Python, but ensure it is installed on your system)
 
 ## Screenshots
 
